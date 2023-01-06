@@ -13,6 +13,13 @@ typedef struct	s_point
 	int	y;
 }				Point;
 
+typedef struct	s_path
+{
+	Point	*curr;
+	Point	*next;
+}				Path;
+
+
 typedef struct	s_map
 {
 	char	**parsed_map;
@@ -29,4 +36,5 @@ int		ft_strchr(char *s, int c);
 //char	**parse_map(char *file_path);
 Map		*parse_map(char *file_path);
 int		count_line(char *file_path);
+Point	*get_point(char	**map, char c);
 #endif

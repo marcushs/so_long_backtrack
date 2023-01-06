@@ -29,30 +29,6 @@ int	count_cols(char *s)
 	return (i);
 }
 
-// char	**parse_map(char *file_path)
-// {
-// 	char	**parsed_map;
-// 	int		nb_lines;
-// 	int		fd;
-// 	int		i;
-
-// 	nb_lines = count_lines(file_path);
-// 	parsed_map = (char **)malloc(sizeof(char *) * nb_lines);
-// 	if (!parsed_map)
-// 		return (NULL);
-// 	fd = open(file_path, O_RDONLY);
-// 	parsed_map[0] = get_next_line(fd);
-// 	i = 1;
-// 	while (i < nb_lines)
-// 	{
-// 		parsed_map[i] = get_next_line(fd);
-// 		i++;
-// 	}
-// 	parsed_map[i] = 0;
-// 	close(fd);
-// 	return (parsed_map);
-// }
-
 Map	*parse_map(char *file_path)
 {
 	Map	*map;
@@ -74,4 +50,29 @@ Map	*parse_map(char *file_path)
 	map->parsed_map[i] = 0;
 	close(fd);
 	return (map);
+}
+
+Point	*get_point(char	**map, char c)
+{
+	Point	*point;
+	int x = 0;
+	int y = 0;
+
+	point = (Point *)malloc(sizeof(Point));
+	while (map[y])
+	{
+		while (map[y][x] != 0 && map[y][x] != '\n')
+		{
+			if (map[y][x] == c)
+			{
+				point->x = x;
+				point->y = y;
+				return (point);
+			}
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	return (NULL);
 }
