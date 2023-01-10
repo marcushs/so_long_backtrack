@@ -17,7 +17,6 @@ int	walk(Map *map, char wall, Point *curr, Point *end, int **seen, int **dir, Pa
 	if (seen[curr->y][curr->x])
 		return (0);
 	//recursion;
-	//pre
 	seen[curr->y][curr->x] = 1;
 	ft_lst_push(&path, curr);
 
@@ -29,6 +28,8 @@ int	walk(Map *map, char wall, Point *curr, Point *end, int **seen, int **dir, Pa
 		printf("x: %d y: %d ", curr->x, curr->y);
 		if (walk(map, '1', curr, end, seen, dir, path))
 			return (1);
+		curr->x = curr->x - dir[i][1];
+		curr->y = curr->y - *(dir[i]);
 	}
 
 	//post
@@ -53,7 +54,7 @@ Path	*pathfinder(Map *map, char wall, Point *start, Point *end)
 
 int	main(void)
 {
-	Map	*map = parse_map("test.ber");
+	Map	*map = parse_map("map1.ber");
 	Path *path;
 	Point	*start;
 	Point	*end;
@@ -64,6 +65,7 @@ int	main(void)
 
 	start = get_point(map->parsed_map, 'P');
 	end = get_point(map->parsed_map, 'E');
+	printf("\n");
 	printf("P's x = %d\n", start->x);
 	printf("P's y = %d\n", start->y);
 	printf("E's x = %d\n", end->x);
